@@ -17,13 +17,14 @@ def take_picture(channel):
 # else is happening in the program, the function "my_callback" will be run  
 # It will happen even while the program is waiting for  
 # a falling edge on the other button.  
-GPIO.add_event_detect(20, GPIO.FALLING, callback=take_picture)  
+GPIO.add_event_detect(20, GPIO.FALLING, callback=take_picture, bouncetime = 2000)  
   
 try:  
     print "Waiting for falling edge on port 23"  
-    GPIO.wait_for_edge(21, GPIO.FALLING)  
-    print("Shutdown function.")  
-  
+    GPIO.wait_for_edge(21, GPIO.FALLING, bouncetime = 2000)  
+    print("Shutdown function.")
+    os.system("sudo shutdown -h now")  
+
 except KeyboardInterrupt:  
     GPIO.cleanup()       # clean up GPIO on CTRL+C exit  
 GPIO.cleanup()           # clean up GPIO on normal exit  
